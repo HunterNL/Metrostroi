@@ -103,7 +103,11 @@ function ENT:Think()
 		self:SetSoundState("run1",0.0,0.0)
 		self:SetSoundState("run2",startVolRamp*(1-bleedVolRamp),speedPitch2)
 		self:SetSoundState("run3",startVolRamp*(  bleedVolRamp),speedPitch3)
-		self:SetSoundState("run4",0,0) --startVolRamp*3.0,math.min(1.0,speed/30)+math.max(0.0,(speed-60.0)/40))
+		if (GetConVarNumber("metrostroi_crazy_thomas_mode") > 0) then
+			self:SetSoundState("run4",startVolRamp*3.0,math.min(1.0,speed/30)+math.max(0.0,(speed-60.0)/40))
+		else 
+			self:SetSoundState("run4",0,0)
+		end
 	else
 		self:SetSoundState("run1",0,0)
 		self:SetSoundState("run2",0,0)

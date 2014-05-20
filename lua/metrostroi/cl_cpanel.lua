@@ -13,8 +13,19 @@ end
 
 -- Build regular client panel
 local function ClientPanel(panel)
-	AddBox(panel,"metrostroi_drawdebug","Draw debugging info")
 	--panel:AddControl("Checkbox",{Label="Draw debugging info", Command = "metrostroi_drawdebug"})
+	AddBox(panel,"metrostroi_drawdebug","Draw debugging info")
+	AddBox(panel,"metrostroi_stop_helper","Show stop location helper")
+	AddBox(panel,"metrostroi_crazy_thomas_mode","Crazy Thomas Mode")
+	
+	panel:AddControl("Slider", {
+		Label = "Tooltip delay",
+		Type = "Integer",
+		Min = "-1",
+		Max = "5",
+		Command = "metrostroi_tooltip_delay"
+	})
+	
 end
 
 hook.Add("PopulateToolMenu", "Metrostroi cpanel", function()
