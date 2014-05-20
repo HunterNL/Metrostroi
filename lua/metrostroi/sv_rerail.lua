@@ -30,7 +30,7 @@ local function traceWorldOnly(pos,dir,col)
 		endpos = pos+dir,
 		mask = MASK_NPCWORLDSTATIC
 	})
-	if false then -- Shows all traces done by rerailer
+	if true then -- Shows all traces done by rerailer
 		debugoverlay.Line(tr.StartPos,tr.HitPos,10,col or Color(0,0,255),true)
 		debugoverlay.Sphere(tr.StartPos,2,10,Color(0,255,255),true)
 	end

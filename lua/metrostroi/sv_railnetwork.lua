@@ -232,11 +232,8 @@ function Metrostroi.AddARSSubSection(node,source)
 	local ent = ents.Create("gmod_track_signal")
 	if not IsValid(ent) then return end
 	
-	local tr = Metrostroi.RerailGetTrackData(node.pos - node.dir*32,node.dir)
-	if not tr then return end
-	
-	ent:SetPos(tr.centerpos - tr.up * 9.5)
-	ent:SetAngles((-tr.right):Angle())
+	Metrostroi.PlaceARSSectionEntOnTrackNode(ent,node)
+
 	ent:Spawn()
 	ent:SetLightsStyle(0)
 	ent:SetTrafficLights(0)
@@ -249,7 +246,17 @@ function Metrostroi.AddARSSubSection(node,source)
 	Metrostroi.ARSSubSectionCount = Metrostroi.ARSSubSectionCount + 1
 end
 
-
+--------------------------------------------------------------------------------
+-- Place given ARS section ent on given node
+-- Split up for debugging
+--------------------------------------------------------------------------------
+function Metrostroi.PlaceARSSectionEntOnTrackNode(ent,node)
+	local tr = Metrostroi.RerailGetTrackData(node.pos - node.dir*32,node.dir)
+	if not tr then return end
+	
+	ent:SetPos(tr.centerpos - tr.up * 9.5)
+	ent:SetAngles((-tr.right):Angle())
+end
 --------------------------------------------------------------------------------
 -- Update ARS sections (and add additional subsections
 --------------------------------------------------------------------------------
