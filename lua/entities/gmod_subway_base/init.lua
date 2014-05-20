@@ -1175,14 +1175,16 @@ function ENT:Think()
 	end
 	
 	-- Add interesting debug variables
-	--[[for i=1,32 do
-		self.DebugVars["TW"..i] = self:ReadTrainWire(i)
-	end
-	for k,v in pairs(self.Systems) do
-		for _,output in pairs(v.OutputsList) do
-			self.DebugVars[(v.Name or "")..output] = v[output] or 0
+	if (GetConVarNumber("metrostroi_debugger_enabled") > 0) then
+		for i=1,32 do
+			self.DebugVars["TW"..i] = self:ReadTrainWire(i)
 		end
-	end]]--
+		for k,v in pairs(self.Systems) do
+			for _,output in pairs(v.OutputsList) do
+				self.DebugVars[(v.Name or "")..output] = v[output] or 0
+			end
+		end
+	end
 	
 	-- Calculate own speed and acceleration
 	local speed,acceleration = 0,0

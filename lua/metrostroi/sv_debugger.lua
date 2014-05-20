@@ -51,6 +51,10 @@ end
 
 --Handler for adding new ents to listen to
 local function cmdinithandler(ply,cmd,args,fullstring)
+	if not (GetConVarNumber("metrostroi_debugger_enabled") > 0) then
+		ply:PrintMessage(HUD_PRINTCONSOLE,"Debugger is disabled serverside")
+		return 
+	end
 	local ent = ply:GetEyeTrace().Entity
 	if not IsValid(ent) or not ent.GetDebugVars then return end
 

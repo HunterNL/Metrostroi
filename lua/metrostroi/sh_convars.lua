@@ -1,9 +1,14 @@
 --Not sure about the quirks related to shared convars like this
 CreateConVar("metrostroi_train_requirethirdrail",1,FCVAR_ARCHIVE,"Whether or not Metrostroi trains require power from the third rail")
 CreateConVar("metrostroi_debugger_update_interval",1,FCVAR_ARCHIVE,"Seconds between debugger data messages")
+CreateConVar("metrostroi_debugger_enabled",0,FCVAR_ARCHIVE,"Enable train system debugger")
 
-RunConsoleCommand("metrostroi_train_requirethirdrail",(string.find(game.GetMap(),"gm_metrostroi") and 1 or 0))
 
+
+local function SetupConvars()
+	RunConsoleCommand("metrostroi_train_requirethirdrail",(string.find(game.GetMap(),"gm_metrostroi") and 1 or 0))
+end
+hook.Add( "Initialize", "metrostroi_convar_init", SetupConvars )
 
 if SERVER then return end
 

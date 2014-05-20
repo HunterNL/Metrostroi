@@ -7,6 +7,7 @@ end
 local function AdminPanel(panel)
 	if not LocalPlayer():IsAdmin() then return end
 	AddBox(panel,"metrostroi_train_requirethirdrail","Trains require 3rd rail")
+	AddBox(panel,"metrostroi_debugger_enabled","Enable system debugger")
 	--panel:AddControl("CheckBox",{Label="Trains require 3rd rail", Command = "metrostroi_train_requirethirdrail"})
 	
 end
@@ -17,6 +18,7 @@ local function ClientPanel(panel)
 	AddBox(panel,"metrostroi_drawdebug","Draw debugging info")
 	AddBox(panel,"metrostroi_stop_helper","Show stop location helper")
 	AddBox(panel,"metrostroi_crazy_thomas_mode","Crazy Thomas Mode")
+	
 	
 	panel:AddControl("Slider", {
 		Label = "Tooltip delay",
