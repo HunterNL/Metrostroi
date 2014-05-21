@@ -100,9 +100,7 @@ end
 
 function ENT:OnRemove()
 	SafeRemoveEntity(self.Wheels)
-	if self.CoupledBogey ~= nil then
-		self:Decouple()
-	end
+	self:SafeDecouple()
 end
 
 function ENT:GetDebugVars()
@@ -118,8 +116,10 @@ function ENT:TriggerInput(iname, value)
 		self.MotorForce = value
 	elseif iname == "MotorReversed" then
 		self.Reversed = value > 0.5
-	elseif iname == "Decouple" and self.CoupledBogey ~= nil then
-		self:Decouple()
+	elseif iname == "Decouple" then
+		if value > 0 then
+			self:SafeDecouple()
+		end
 	end
 end
 
@@ -208,9 +208,7 @@ end
 
 -- Used to decouple
 function ENT:Use(ply)
-	if self.CoupledBogey ~= nil then
-		self:Decouple()
-	end
+	self:SafeDecouple()
 end
 
 local function removeAdvBallSocketBetweenEnts(ent1,ent2)
@@ -222,6 +220,15 @@ local function removeAdvBallSocketBetweenEnts(ent1,ent2)
 	end
 end
 
+-- Use this for "high level" decoupling
+function ENT:SafeDecouple()
+	if self.CoupledBogey ~= nil then
+		self:Decouple()
+	end
+end
+
+
+-- Use this if you know what you're doing
 function ENT:Decouple()
 	if self.CoupledBogey then
 		sound.Play("buttons/lever8.wav",(self:GetPos()+self.CoupledBogey:GetPos())/2)
@@ -237,7 +244,7 @@ function ENT:Decouple()
 	self:OnDecouple()
 end
 
-
+-- This NEEDS to set self.CoupledBogey
 function ENT:OnCouple(ent)
 	self.CoupledBogey = ent
 	
