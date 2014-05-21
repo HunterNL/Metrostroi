@@ -37,7 +37,8 @@ function ENT:Initialize()
 	if Wire_CreateInputs then
 		self.Inputs = Wire_CreateInputs(self,{
 			"BrakeCylinderPressure",
-			"MotorCommand", "MotorForce", "MotorReversed" })
+			"MotorCommand", "MotorForce", "MotorReversed",
+			"Decouple"})
 		self.Outputs = Wire_CreateOutputs(self,{
 			"Speed", "BrakeCylinderPressure"
 		})
@@ -117,6 +118,8 @@ function ENT:TriggerInput(iname, value)
 		self.MotorForce = value
 	elseif iname == "MotorReversed" then
 		self.Reversed = value > 0.5
+	elseif iname == "Decouple" and self.CoupledBogey ~= nil then
+		self:Decouple()
 	end
 end
 
